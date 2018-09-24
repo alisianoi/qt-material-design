@@ -1,6 +1,8 @@
 #ifndef DME_H
 #define DME_H
 
+#include <iostream>
+
 #include <QtWidgets>
 
 class MyMainWidget : public QWidget

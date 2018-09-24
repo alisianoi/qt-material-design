@@ -8,9 +8,21 @@ class CentralWidget : public QWidget
 public:
     CentralWidget(QWidget *parent=nullptr) : QWidget(parent) {
         auto main_lbl = new QLabel("Hello, world!");
+        main_lbl->setAlignment(Qt::AlignCenter);
 
         auto cancel_btn = new QPushButton("Cancel");
         auto accept_btn = new QPushButton("Accept");
+
+        connect(
+            cancel_btn, &QPushButton::clicked
+            , this, &CentralWidget::handle_cancel
+        );
+
+        connect(
+            accept_btn, &QPushButton::clicked
+            , this, &CentralWidget::handle_accept
+        );
+
         auto hlayout = new QHBoxLayout();
 
         hlayout->addWidget(cancel_btn);
@@ -21,6 +33,14 @@ public:
         vlayout->addLayout(hlayout);
 
         this->setLayout(vlayout);
+    }
+
+    void handle_cancel() {
+        std::cerr << "handle cancel" << std::endl;
+    }
+
+    void handle_accept() {
+        std::cerr << "handle accept" << std::endl;
     }
 };
 
