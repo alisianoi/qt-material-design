@@ -5,17 +5,19 @@ namespace mtd
 
 class CentralWidget : public QWidget
 {
+    QStateMachine *machine;
+
 public:
     CentralWidget(QWidget *parent=nullptr) : QWidget(parent) {
         auto main_lbl = new QLabel("Hello, world!");
         main_lbl->setAlignment(Qt::AlignCenter);
 
-        auto cancel_btn = new QPushButton("Cancel");
+        auto reject_btn = new QPushButton("Cancel");
         auto accept_btn = new QPushButton("Accept");
 
         connect(
-            cancel_btn, &QPushButton::clicked
-            , this, &CentralWidget::handle_cancel
+            reject_btn, &QPushButton::clicked
+            , this, &CentralWidget::handle_reject
         );
 
         connect(
@@ -23,9 +25,31 @@ public:
             , this, &CentralWidget::handle_accept
         );
 
+        machine = new QStateMachine();
+
+        auto proposed = new QState();
+        auto rejected = new QState();
+        auto accepted = new QState();
+
+        proposed->assignProperty(machine, "state", "proposed");
+        rejected->assignProperty(machine, "state", "rejected");
+        accepted->assignProperty(machine, "state", "accepted");
+
+        machine->addState(proposed);
+        machine->addState(rejected);
+        machine->addState(accepted);
+
+        proposed->addTransition(reject_btn, &QPushButton::clicked, rejected);
+        proposed->addTransition(accept_btn, &QPushButton::clicked, accepted);
+
+        machine->setInitialState(proposed);
+        qDebug() << machine->property("state").toString();
+        machine->start();
+        qDebug() << machine->property("state").toString();
+
         auto hlayout = new QHBoxLayout();
 
-        hlayout->addWidget(cancel_btn);
+        hlayout->addWidget(reject_btn);
         hlayout->addWidget(accept_btn);
 
         auto vlayout = new QVBoxLayout();
@@ -35,12 +59,14 @@ public:
         this->setLayout(vlayout);
     }
 
-    void handle_cancel() {
+    void handle_reject() const {
         std::cerr << "handle cancel" << std::endl;
+        qDebug() << machine->property("state").toString();
     }
 
-    void handle_accept() {
+    void handle_accept() const {
         std::cerr << "handle accept" << std::endl;
+        qDebug() << machine->property("state").toString();
     }
 };
 
