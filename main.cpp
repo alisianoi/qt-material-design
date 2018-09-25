@@ -12,8 +12,8 @@ public:
         auto main_lbl = new QLabel("Hello, world!");
         main_lbl->setAlignment(Qt::AlignCenter);
 
-        auto reject_btn = new QPushButton("Cancel");
-        auto accept_btn = new QPushButton("Accept");
+        auto reject_btn = new PushButton("Cancel");
+        auto accept_btn = new PushButton("Accept");
 
         connect(
             reject_btn, &QPushButton::clicked

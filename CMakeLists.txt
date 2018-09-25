@@ -13,7 +13,7 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5Widgets CONFIG REQUIRED)
 
-set(qt-material-design-src main.cpp)
+set(qt-material-design-src main.cpp button.cpp)
 
 add_executable(main ${qt-material-design-src})
 

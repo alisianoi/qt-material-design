@@ -1,15 +1,9 @@
-#ifndef DME_H
-#define DME_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #include <iostream>
 
 #include <QtWidgets>
+#include "button.h"
 
-class MyMainWidget : public QWidget
-{
-    Q_OBJECT
-public:
-    explicit MyMainWidget(QWidget *parent = nullptr);
-};
-
-#endif // DME_H
+#endif // MAIN_H
