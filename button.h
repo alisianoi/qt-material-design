@@ -3,6 +3,8 @@
 
 #include <QtWidgets>
 
+#include "button_p.h"
+
 namespace mtd
 {
 
@@ -10,11 +12,14 @@ class PushButton : public QPushButton
 {
     Q_OBJECT
 public:
-    explicit PushButton(QWidget *parent=nullptr);
-    explicit PushButton(const QString &text, QWidget *parent=nullptr);
-    explicit PushButton(
-        const QIcon &icon, const QString &text, QWidget *parent=nullptr
-    );
+    PushButton(QWidget *parent=nullptr);
+    PushButton(const QString &text, QWidget *parent=nullptr);
+    PushButton(const QIcon &icon, const QString &text, QWidget *parent=nullptr);
+protected:
+    void paintEvent(QPaintEvent *event) override;
+private:
+    Q_DISABLE_COPY(PushButton)
+    Q_DECLARE_PRIVATE(PushButton)
 };
 
 } // namespace mtd

@@ -7,13 +7,16 @@ class CentralWidget : public QWidget
 {
     QStateMachine *machine;
 
+    PushButton *reject_btn;
+    PushButton *accept_btn;
+
 public:
     CentralWidget(QWidget *parent=nullptr) : QWidget(parent) {
         auto main_lbl = new QLabel("Hello, world!");
         main_lbl->setAlignment(Qt::AlignCenter);
 
-        auto reject_btn = new PushButton("Cancel");
-        auto accept_btn = new PushButton("Accept");
+        reject_btn = new PushButton("Cancel");
+        accept_btn = new PushButton("Accept");
 
         connect(
             reject_btn, &QPushButton::clicked
@@ -62,11 +65,17 @@ public:
     void handle_reject() const {
         std::cerr << "handle cancel" << std::endl;
         qDebug() << machine->property("state").toString();
+        qDebug() << reject_btn->rect();
+        qDebug() << reject_btn->pos();
+        qDebug() << rect();
     }
 
     void handle_accept() const {
         std::cerr << "handle accept" << std::endl;
         qDebug() << machine->property("state").toString();
+        qDebug() << accept_btn->rect();
+        qDebug() << accept_btn->pos();
+        qDebug() << rect();
     }
 };
 
